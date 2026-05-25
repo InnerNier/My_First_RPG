@@ -9,7 +9,7 @@ public class Main {
 	
 	public static void main(String[] args)
 	{
-		JFrame frame = new JFrame("Basic Video Game");
+		JFrame frame = new JFrame("My Video Game");
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setSize(400, 300);
 	    frame.setLocationRelativeTo(null);
