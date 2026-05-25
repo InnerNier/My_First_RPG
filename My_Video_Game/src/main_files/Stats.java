@@ -1,6 +1,9 @@
 package main_files;
+import java.util.Random;
 
-public class Stats {
+public class Stats 
+{
+	String name;
 	int level; //Indicator of how strong the player or enemy is
 	int max_hp; //"Hit Points". current_hp is not allowed to exceed this number
 	int current_hp; //The number that will lower when taking damage and rise when being healed, not allowed to be below 0. Player or enemy will be defeated once it reaches 0
@@ -9,9 +12,11 @@ public class Stats {
 	int speed; //Will determine who goes first
 	int defense; //Will determine resistance of physical attacks
 	int experience; //Will determine if player can level up
+	Random random_calculator = new Random();
 	
-	public Stats(int entered_level, int entered_hp, int entered_strength, int entered_magic, int entered_speed, int entered_defense) //Constructor to set stats for player or enemy
+	public Stats(String entered_name, int entered_level, int entered_hp, int entered_strength, int entered_magic, int entered_speed, int entered_defense) //Constructor to set stats for player or enemy
 	{
+		name = entered_name;
 		level = entered_level;
 		max_hp = entered_hp;
 		current_hp = entered_hp;
@@ -21,13 +26,39 @@ public class Stats {
 		defense = entered_defense;
 		experience = 0;
 	}
-	public void Take_Damage(int damage) //lower current_hp
+	public int Calculate_Attack(boolean is_magic)
 	{
+		int damage;
+		if(is_magic)
+		{
+			damage = random_calculator.nextInt(3) + magic;
+		}
+		else 
+		{
+			damage = random_calculator.nextInt(3) + strength;
+		}
+		return damage;
+	}
+	public void Take_Damage(int damage, boolean is_magic) //lower current_hp
+	{
+		if(is_magic)
+		{
+			damage = damage - magic;
+		}
+		else
+		{
+			damage = damage - defense;
+		}
+		if(damage <= 0)
+		{
+			damage = 1;
+		}
 		current_hp = current_hp - damage;
 		if(current_hp < 0) //Prevents current_hp from being below 0
 		{
 			current_hp = 0;
 		}
+		System.out.print("Took " + damage + " damage");
 	}
 	public void Heal_Damage(int heal) //raises current_hp
 	{
@@ -36,10 +67,12 @@ public class Stats {
 		{
 			current_hp = max_hp;
 		}
+		System.out.print("Received heal of " + heal + " now at " + current_hp + " hp");
 	}
 	public void Increase_Experience(int gained_experience)
 	{
 		experience = experience + gained_experience;
+		System.out.print("Gained " + gained_experience + " experience points");
 	}
 	public boolean Can_Level_up()
 	{
@@ -56,6 +89,17 @@ public class Stats {
 	public void Level_up()
 	{
 		level = level + 1;
-		//add logic to increase other stats
+		max_hp = max_hp + random_calculator.nextInt(5) + 1;
+		current_hp = max_hp;
+		strength = strength + random_calculator.nextInt(3) + 1;
+		magic = magic + random_calculator.nextInt(3) + 1;
+		speed = speed + random_calculator.nextInt(3) + 1;
+		defense = defense + random_calculator.nextInt(3) + 1;
+		System.out.println("You leveled up");
+		System.out.println("Your level is now " + level);
+		System.out.println("Strength has increased to " + strength);
+		System.out.println("Magic has increased to " + magic);
+		System.out.println("Speed has increased to " + speed);
+		System.out.println("Defense has increased to " + defense);
 	}
 }
