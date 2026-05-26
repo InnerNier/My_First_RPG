@@ -17,11 +17,10 @@ public class Inventory //for now exists simply to track the potions the player i
 			return true;
 		}
 	}
-	public boolean Gain_Potion() //will give confirmation potion has been added to the bag
+	public void Gain_Potion() //will give confirmation potion has been added to the bag
 	{
 		potion_bag = potion_bag + 1;
 		System.out.println("Potion has been added to the bag. You now have: " + potion_bag);
-		return true;
 	}
 	public void Mix_Potions()
 	{
