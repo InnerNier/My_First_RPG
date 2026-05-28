@@ -98,11 +98,60 @@ public class Combat_Script
 	}
 	public void Boss_Fight(Stats player, Inventory player_inventory)
 	{
-		Stats bear = new Stats("Bear", 10, 70, 21, 1, 17, 17);
-		//loop between the player and enemy turns
-		//give player experience
-		//check for level up
-		//level up if true
+		Stats bear = new Stats("Bear", 10, 70, 21, 19, 22, 17);
+		System.out.println(bear.name + " appears");
+		Timeout();
+		while(true) //loop for the battle
+		{
+			if(player.speed >= bear.speed)
+			{
+				Player_Turn(player, bear, player_inventory);
+				if(bear.current_hp == 0)
+				{
+					System.out.println(bear.name + " has been defeated");
+					Timeout();
+					break;
+				}
+				Enemy_Turn(player, bear);
+				if(player.current_hp == 0)
+				{
+					System.out.println(player.name + " has been defeated");
+					Timeout();
+					break;
+				}
+			}
+			else
+			{
+				Enemy_Turn(player, bear);
+				if(player.current_hp == 0)
+				{
+					System.out.println(player.name + " has been defeated");
+					Timeout();
+					break;
+				}
+				Player_Turn(player, bear, player_inventory);
+				if(bear.current_hp == 0)
+				{
+					System.out.println(bear.name + " has been defeated");
+					Timeout();
+					break;
+				}
+			}
+		}
+		if(bear.current_hp == 0)
+		{
+			System.out.println("You stand before a large pile of Treasure");
+			Timeout();
+			System.out.println("You're set for life!");
+			Timeout();
+			System.out.println("Thanks for playing!");
+			System.exit(0);
+		}
+		else
+		{
+			Main_Script game_over_caller = new Main_Script();
+			game_over_caller.Game_Over();
+		}
 	}
 	public void Player_Turn(Stats player, Stats enemy, Inventory player_inventory)
 	{
@@ -110,9 +159,9 @@ public class Combat_Script
 		Timeout();
 		System.out.println("Enter 'w' to use your Sword\nEnter 'a' to use your Magic\nEnter 'd' to drink a Potion");
 		Timeout();
-		char user_input = keyboard.next().toLowerCase().charAt(0);
 		outerloop: while(true)
 		{
+			char user_input = keyboard.next().toLowerCase().charAt(0);
 			switch(user_input) 
 			{
 				case 'w':
