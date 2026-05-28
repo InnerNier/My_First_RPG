@@ -99,7 +99,7 @@ public class Main_Script
 					}
 					else
 					{
-						System.out.println("Time to fight the bear!");
+						battle.Boss_Fight(player, player_inventory);
 					}
 					Timeout();
 					if(total_searches != 30)

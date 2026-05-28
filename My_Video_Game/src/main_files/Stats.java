@@ -71,12 +71,21 @@ public class Stats
 	}
 	public void Increase_Experience(int gained_experience)
 	{
+		if(level == 10)
+		{
+			System.out.println("You are max level, so no experience for you");
+			return;
+		}
 		experience = experience + gained_experience;
 		System.out.println("Gained " + gained_experience + " experience points");
 	}
 	public boolean Can_Level_up()
 	{
 		int[] milestones = {10, 20, 30, 40, 50, 60, 70, 80, 90};
+		if(level == 10)
+		{
+			return false;
+		}
 		if(experience >= milestones[level - 1])
 		{
 			return true;
@@ -109,6 +118,7 @@ public class Stats
 		defense = defense + random_calculator.nextInt(3) + 1;
 		System.out.println("You leveled up");
 		System.out.println("Your level is now " + level);
+		System.out.println("Your hp is now " + max_hp);
 		System.out.println("Strength has increased to " + strength);
 		System.out.println("Magic has increased to " + magic);
 		System.out.println("Speed has increased to " + speed);
