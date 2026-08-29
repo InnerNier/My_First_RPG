@@ -42,14 +42,14 @@ public class Combat_Script
 			if(player.speed >= enemy.speed)
 			{
 				Player_Turn(player, enemy, player_inventory);
-				if(enemy.current_hp == 0)
+				if(enemy.getHp() == 0)
 				{
 					System.out.println(enemy.name + " has been defeated");
 					Timeout();
 					break;
 				}
 				Enemy_Turn(player, enemy);
-				if(player.current_hp == 0)
+				if(player.getHp() == 0)
 				{
 					System.out.println(player.name + " has been defeated");
 					Timeout();
@@ -59,14 +59,14 @@ public class Combat_Script
 			else
 			{
 				Enemy_Turn(player, enemy);
-				if(player.current_hp == 0)
+				if(player.getHp() == 0)
 				{
 					System.out.println(player.name + " has been defeated");
 					Timeout();
 					break;
 				}
 				Player_Turn(player, enemy, player_inventory);
-				if(enemy.current_hp == 0)
+				if(enemy.getHp() == 0)
 				{
 					System.out.println(enemy.name + " has been defeated");
 					Timeout();
@@ -74,18 +74,18 @@ public class Combat_Script
 				}
 			}
 		}
-		if(enemy.current_hp == 0)
+		if(enemy.getHp() == 0)
 		{
 			int experience = enemy.level * 3;
-			player.Increase_Experience(experience);
+			player.increaseExperience(experience);
 			Timeout();
 			boolean can_level_up = true;
 			while(can_level_up)
 			{
-				can_level_up = player.Can_Level_up();
+				can_level_up = player.canLevelUp();
 				if(can_level_up)
 				{
-					player.Level_up();
+					player.levelUp();
 					Timeout();
 				}
 			}
@@ -106,14 +106,14 @@ public class Combat_Script
 			if(player.speed >= bear.speed)
 			{
 				Player_Turn(player, bear, player_inventory);
-				if(bear.current_hp == 0)
+				if(bear.getHp() == 0)
 				{
 					System.out.println(bear.name + " has been defeated");
 					Timeout();
 					break;
 				}
 				Enemy_Turn(player, bear);
-				if(player.current_hp == 0)
+				if(player.getHp() == 0)
 				{
 					System.out.println(player.name + " has been defeated");
 					Timeout();
@@ -123,14 +123,14 @@ public class Combat_Script
 			else
 			{
 				Enemy_Turn(player, bear);
-				if(player.current_hp == 0)
+				if(player.getHp() == 0)
 				{
 					System.out.println(player.name + " has been defeated");
 					Timeout();
 					break;
 				}
 				Player_Turn(player, bear, player_inventory);
-				if(bear.current_hp == 0)
+				if(bear.getHp() == 0)
 				{
 					System.out.println(bear.name + " has been defeated");
 					Timeout();
@@ -138,7 +138,7 @@ public class Combat_Script
 				}
 			}
 		}
-		if(bear.current_hp == 0)
+		if(bear.getHp() == 0)
 		{
 			System.out.println("You stand before a large pile of Treasure");
 			Timeout();
@@ -165,17 +165,17 @@ public class Combat_Script
 			switch(user_input) 
 			{
 				case 'w':
-					int attack_damage = player.Calculate_Attack(false);
+					int attack_damage = player.calculateAttack(false);
 					System.out.println("You slashed at " + enemy.name + " with your sword");
 					Timeout();
-					enemy.Take_Damage(attack_damage, false);
+					enemy.takeDamage(attack_damage, false);
 					Timeout();
 					break outerloop;
 				case 'a':
-					int magic_damage = player.Calculate_Attack(true);
+					int magic_damage = player.calculateAttack(true);
 					System.out.println("You conjured a bolt of fire at " + enemy.name);
 					Timeout();
-					enemy.Take_Damage(magic_damage, true);
+					enemy.takeDamage(magic_damage, true);
 					Timeout();
 					break outerloop;
 				case 'd':
@@ -183,7 +183,7 @@ public class Combat_Script
 					Timeout();
 					if(potion_use_success)
 					{
-						player.Heal_Damage(20);
+						player.healDamage(20);
 						Timeout();
 						break outerloop;
 					}
@@ -202,10 +202,10 @@ public class Combat_Script
 		Timeout();
 		System.out.println(enemy.name + " attacks");
 		Timeout();
-		int attack_damage = enemy.Calculate_Attack(false);
-		player.Take_Damage(attack_damage, false);
+		int attack_damage = enemy.calculateAttack(false);
+		player.takeDamage(attack_damage, false);
 		Timeout();
-		System.out.println(player.name + " is now at " + player.current_hp + " hp");
+		System.out.println(player.name + " is now at " + player.getHp() + " hp");
 		Timeout();
 	}
 }
